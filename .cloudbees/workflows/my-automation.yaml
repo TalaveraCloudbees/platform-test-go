@@ -5,21 +5,13 @@ name: My automation
 on:
   push:
     branches:
-      - '**'
+      - main
 
 jobs:
-  ci-job:
+  build:
     steps:
-      - uses: docker://alpine/git:latest
+      - name: Say hello
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
         run: |
-          git config --global --add safe.directory /cloudbees/workspace
-      - name: checkout
-        uses: cloudbees-io/checkout@v1
-      - name: Build Go app
-        uses: docker://golang:1.20
-        run: |
-          go build -v ./...
-      - name: Run tests
-        uses: docker://golang:1.20
-        run: |
-          go test -v ./...
+          echo "hello world"
